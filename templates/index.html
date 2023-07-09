@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <title>Weather App</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: rgb(42, 42, 42);
+      }
+
+      header {
+        background-color: #009688;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        font-size: 1.5em;
+      }
+
+      nav form {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      input[name="climate-location"] {
+        padding: 10px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 3px;
+        width: 200px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      button[type="submit"] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        background-color: #009688;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #00675b;
+      }
+
+      h1#climate-heading {
+        text-align: center;
+        padding: 20px 0;
+        color: #009688;
+      }
+
+      h3 {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+
+      .climate-temp,
+      .climate-humidity,
+      .climate-wind,
+      .climate-sunrise,
+      .climate-sunset {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .climate-temp {
+        font-weight: bold;
+      }
+
+      .climate-data-block {
+        font-weight: bold;
+        color: #009688;
+      }
+
+      #climate-info-today .climate-data-block {
+        color: white;
+      }
+
+      #climate-info-today .climate-temp .data-details {
+        font-size: 2.5em; /* Increasing font size of temperature */
+        color: white; /* Changing text color */
+      }
+
+      .climate-info-next {
+        margin: 0 auto;
+        width: 80%;
+        max-width: 400px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        margin-bottom: 20px;
+        transition: box-shadow 0.3s ease;
+      }
+
+      .climate-info-next:hover {
+        box-shadow: 0 5px 25px rgb(255, 255, 255);
+      }
+
+      #climate-info-today {
+        background-color: #009688; /* Changing background color */
+        color: white; /* Changing text color */
+        margin-bottom: 50px;
+      }
+
+      #climate-info-today:hover {
+        box-shadow: 0 5px 25px rgb(1, 229, 111); /* Changing hover color */
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <div>
+          <form id="climate-form">
+            <input name="climate-location" placeholder="Location" type="text" />
+            <button type="submit">Fetch</button>
+          </form>
+        </div>
+      </nav>
+    </header>
+    <div>
+      <h1 id="climate-heading">Climate in Paris</h1>
+      <section>
+        <div class="row">
+          <div class="col-md-4 climate-info-next" id="climate-info-today">
+            <h3>
+              <span class="day-name">Today</span>
+              <span class="date-info">--/--</span>
+            </h3>
+            <div>
+              <div class="climate-temp">
+                <span class="data-details">--°C</span>
+              </div>
+            </div>
+            <div>
+              <div class="climate-humidity">
+                <div>Humidity</div>
+                <div class="climate-data-block">--%</div>
+              </div>
+              <div class="climate-wind">
+                <div>Wind</div>
+                <div class="climate-data-block">-- km/h</div>
+              </div>
+            </div>
+            <div>
+              <div class="climate-sunrise">
+                <div>Sunrise</div>
+                <div class="climate-data-block">--:--</div>
+              </div>
+              <div class="climate-sunset">
+                <div>Sunset</div>
+                <div class="climate-data-block">--:--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 climate-info-next" id="climate-info-1">
+            <h3>
+              <span class="day-name">Day 1</span>
+              <span class="date-info">--/--</span>
+            </h3>
+            <div>
+              <div class="climate-temp">
+                <span class="data-details">--°C</span>
+              </div>
+            </div>
+            <div>
+              <div class="climate-humidity">
+                <div>Humidity</div>
+                <div class="climate-data-block">--%</div>
+              </div>
+              <div class="climate-wind">
+                <div>Wind</div>
+                <div class="climate-data-block">-- km/h</div>
+              </div>
+            </div>
+            <div>
+              <div class="climate-sunrise">
+                <div>Sunrise</div>
+                <div class="climate-data-block">--:--</div>
+              </div>
+              <div class="climate-sunset">
+                <div>Sunset</div>
+                <div class="climate-data-block">--:--</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 climate-info-next" id="climate-info-2">
+            <h3>
+              <span class="day-name">Day 2</span>
+              <span class="date-info">--/--</span>
+            </h3>
+            <div>
+              <div class="climate-temp">
+                <span class="data-details">--°C</span>
+              </div>
+            </div>
+            <div>
+              <div class="climate-humidity">
+                <div>Humidity</div>
+                <div class="climate-data-block">--%</div>
+              </div>
+              <div class="climate-wind">
+                <div>Wind</div>
+                <div class="climate-data-block">-- km/h</div>
+              </div>
+            </div>
+            <div>
+              <div class="climate-sunrise">
+                <div>Sunrise</div>
+                <div class="climate-data-block">--:--</div>
+              </div>
+              <div class="climate-sunset">
+                <div>Sunset</div>
+                <div class="climate-data-block">--:--</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 climate-info-next" id="climate-info-3">
+            <h3>
+              <span class="day-name">Day 3</span>
+              <span class="date-info">--/--</span>
+            </h3>
+            <div>
+              <div class="climate-temp">
+                <span class="data-details">--°C</span>
+              </div>
+            </div>
+            <div>
+              <div class="climate-humidity">
+                <div>Humidity</div>
+                <div class="climate-data-block">--%</div>
+              </div>
+              <div class="climate-wind">
+                <div>Wind</div>
+                <div class="climate-data-block">-- km/h</div>
+              </div>
+            </div>
+            <div>
+              <div class="climate-sunrise">
+                <div>Sunrise</div>
+                <div class="climate-data-block">--:--</div>
+              </div>
+              <div class="climate-sunset">
+                <div>Sunset</div>
+                <div class="climate-data-block">--:--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      // Function to set data for each day
+      function setDataForDay(id, data, listIndex) {
+        // Display the date
+        $(`#${id} .date-info`).text(
+          moment.unix(data.list[listIndex].dt).format("DD/MM")
+        );
+
+        // Display the temperature in Celsius
+        $(`#${id} .data-details`).text(
+          Math.round(data.list[listIndex].main.temp - 273.15) + "°C"
+        );
+
+        // Display the humidity percentage
+        $(`#${id} .climate-humidity .climate-data-block`).text(
+          data.list[listIndex].main.humidity + "%"
+        );
+
+        // Display the wind speed in km/h
+        $(`#${id} .climate-wind .climate-data-block`).text(
+          (data.list[listIndex].wind.speed * 3.6).toFixed(2) + " km/h"
+        );
+
+        // Display the sunrise time
+        $(`#${id} .climate-sunrise .climate-data-block`).text(
+          moment.unix(data.city.sunrise).format("HH:mm")
+        );
+
+        // Display the sunset time
+        $(`#${id} .climate-sunset .climate-data-block`).text(
+          moment.unix(data.city.sunset).format("HH:mm")
+        );
+      }
+
+      // Function to fetch climate data based on location
+      function fetchClimateData(location) {
+        // API call to get climate data
+        $.getJSON(`/api/weather?location=${location}`)
+          .done(function (data) {
+            console.log(data);
+
+            // Set data for each day
+            setDataForDay("climate-info-today", data, 0);
+            setDataForDay("climate-info-1", data, 8);
+            setDataForDay("climate-info-2", data, 16);
+            setDataForDay("climate-info-3", data, 24);
+
+            // Change the heading to display the current city
+            $("#climate-heading").text("Climate in " + data.city.name);
+          })
+          .fail(function (jqxhr, textStatus, error) {
+            // Display error message
+            alert("Ein Fehler ist aufgetreten: " + textStatus + ", " + error);
+          });
+      }
+
+      // Function to handle form submission
+      $("#climate-form").submit(function (event) {
+        // Prevent form from reloading the page
+        event.preventDefault();
+
+        // Get the input value for location
+        const location = $("input[name='climate-location']").val();
+
+        // Fetch the climate data for the location
+        fetchClimateData(location);
+      });
+
+      // Function to initialize the data on page load
+      $(document).ready(function () {
+        // Get the input value for location
+        let location = $("input[name='climate-location']").val();
+
+        // If there is no input for location, default it to 'Paris'
+        if (!location) {
+          location = "Paris";
+        }
+
+        // Fetch the climate data for the location
+        fetchClimateData(location);
+      });
+    </script>
+  </body>
+</html>
