@@ -273,12 +273,12 @@
     <script>
       // Function to set data for each day
       function setDataForDay(id, data, listIndex) {
-        // Display the date
+        // Display the date, Index 0, 8, 16, 24, the data come in 3-hour intervals and the current times next climate data (next day, same time) are in the 8th index (8*3=24)
         $(`#${id} .date-info`).text(
           moment.unix(data.list[listIndex].dt).format("DD/MM")
         );
 
-        // Display the temperature in Celsius
+        // Display the temperature in Celsius, Default is in Kelvin
         $(`#${id} .data-details`).text(
           Math.round(data.list[listIndex].main.temp - 273.15) + "°C"
         );
@@ -288,7 +288,7 @@
           data.list[listIndex].main.humidity + "%"
         );
 
-        // Display the wind speed in km/h
+        // Display the wind speed in km/h, Default m/s, 1 m/s is approximately equal to 3.6 km/h ~ 1 m/s * (1 km / 1000 m) * (3600 s / 1 hr) = 3.6 km/hr
         $(`#${id} .climate-wind .climate-data-block`).text(
           (data.list[listIndex].wind.speed * 3.6).toFixed(2) + " km/h"
         );
